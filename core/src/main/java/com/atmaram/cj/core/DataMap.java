@@ -31,6 +31,13 @@ public class DataMap extends Data implements Map {
     }
 
     @Override
+    public void remove(String key) {
+        if(data.containsKey(key)){
+            data.remove(key);
+        }
+    }
+
+    @Override
     public void loadAllChilds() {
         for (String key:
              data.keySet()) {

@@ -30,7 +30,12 @@ public class Context {
     }
     public void unLoad(String name,Data data){
         if(this.data.contains(name) && this.data.get(name)==data && stackHashMap.containsKey(name)){
-            this.data.put(name,stackHashMap.get(name).pop());
+            Stack<Data> dataStack=stackHashMap.get(name);
+            if(dataStack.empty())
+                this.data.remove(name);
+            else {
+                this.data.put(name,dataStack.pop());
+            }
         }
     }
 }
