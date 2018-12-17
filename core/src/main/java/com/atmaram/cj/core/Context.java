@@ -1,9 +1,14 @@
 package com.atmaram.cj.core;
 
+import com.atmaram.cj.core.io.Requestor;
+import com.atmaram.cj.core.io.console.ConsoleRequestor;
+import com.atmaram.cj.core.io.console.ConsoleResponder;
+
 import java.util.HashMap;
 import java.util.Stack;
 
 public class Context {
+    public Requestor requestor;
     public String JourneyName;
     HashMap<String,Stack<Data>> stackHashMap=new HashMap<>();
     private DataMap data=new DataMap(this);
@@ -15,6 +20,13 @@ public class Context {
     }
     public Data get(String name){
         return data.get(name);
+    }
+    public <T> Data get(String name,Class<T> tClass){
+        if(data.contains(name)){
+            return data.get(name);
+        } else {
+            return requestor.request(name,tClass);
+        }
     }
     public void load(String name,Data data){
         if(this.data.contains(name)){

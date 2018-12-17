@@ -9,7 +9,15 @@ public class DataList<T extends Data> extends Data implements List<T> {
     @Override
     public void forEach(Iteration<T> iteration) {
         for(var abstractData:data){
+            if(abstractData instanceof DataMap){
+                DataMap dataMap=(DataMap)abstractData;
+                dataMap.loadAllChilds();
+            }
             iteration.doThis(abstractData);
+            if(abstractData instanceof DataMap){
+                DataMap dataMap=(DataMap)abstractData;
+                dataMap.unloadAllChilds();
+            }
         }
     }
 }
